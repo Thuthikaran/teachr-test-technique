@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert; // Add this line
+use Symfony\Component\Serializer\Annotation\Groups; // Import Groups
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
@@ -14,17 +15,20 @@ class Categorie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category:read', 'category:write'])] // Add serialization group
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank] // Add this validation rule
     #[Assert\Length(min: 3)] // You can also add length validation, for example, a minimum of 3 characters
+    #[Groups(['category:read', 'category:write'])] // Add serialization group
     private ?string $nom = null;
 
     /**
      * @var Collection<int, Produit>
      */
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'categorie')]
+    #[Groups(['category:read'])] // Add serialization group for read only
     private Collection $produits;
 
     public function __construct()

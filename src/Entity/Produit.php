@@ -6,6 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert; // Add this line
+use Symfony\Component\Serializer\Annotation\Groups; // Import Groups
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -13,28 +14,34 @@ class Produit
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read', 'product:write'])] // Add serialization group
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank] // Add this validation rule
     #[Assert\Length(min: 3)] // You can also add length validation
+    #[Groups(['product:read', 'product:write'])] // Add serialization group
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank] // Make sure description is not blank
+    #[Groups(['product:read', 'product:write'])] // Add serialization group
     private ?string $description = null;
 
     #[ORM\Column]
     #[Assert\NotBlank] // Ensure price is provided
     #[Assert\Positive] // Ensure the price is positive
+    #[Groups(['product:read', 'product:write'])] // Add serialization group
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank] // Ensure the date is provided
+    #[Groups(['product:read'])] // Add serialization group for read only
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['product:read'])] // Add serialization group for read only
     private ?Categorie $categorie = null;
 
     public function getId(): ?int
