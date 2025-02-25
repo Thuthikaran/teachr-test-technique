@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProduitApiController extends AbstractController
-{
+{   
     // Route to get all products as JSON
     #[Route('/api/produit', name: 'api_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): JsonResponse

@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert; // Add this line
-use Symfony\Component\Serializer\Annotation\Groups; // Import Groups
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -14,34 +14,35 @@ class Produit
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['product:read', 'product:write'])] // Add serialization group
+    // Added 'category:read' here:
+    #[Groups(['product:read', 'product:write', 'category:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank] // Add this validation rule
-    #[Assert\Length(min: 3)] // You can also add length validation
-    #[Groups(['product:read', 'product:write'])] // Add serialization group
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3)]
+    #[Groups(['product:read', 'product:write', 'category:read'])]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank] // Make sure description is not blank
-    #[Groups(['product:read', 'product:write'])] // Add serialization group
+    #[Assert\NotBlank]
+    #[Groups(['product:read', 'product:write', 'category:read'])]
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank] // Ensure price is provided
-    #[Assert\Positive] // Ensure the price is positive
-    #[Groups(['product:read', 'product:write'])] // Add serialization group
+    #[Assert\NotBlank]
+    #[Assert\Positive]
+    #[Groups(['product:read', 'product:write', 'category:read'])]
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank] // Ensure the date is provided
-    #[Groups(['product:read'])] // Add serialization group for read only
+    #[Assert\NotBlank]
+    #[Groups(['product:read', 'category:read'])]
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['product:read'])] // Add serialization group for read only
+    #[Groups(['product:read'])]
     private ?Categorie $categorie = null;
 
     public function getId(): ?int
@@ -57,7 +58,6 @@ class Produit
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -69,7 +69,6 @@ class Produit
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -81,7 +80,6 @@ class Produit
     public function setPrix(float $prix): static
     {
         $this->prix = $prix;
-
         return $this;
     }
 
@@ -93,7 +91,6 @@ class Produit
     public function setDateCreation(\DateTimeInterface $dateCreation): static
     {
         $this->dateCreation = $dateCreation;
-
         return $this;
     }
 
@@ -105,7 +102,6 @@ class Produit
     public function setCategorie(?Categorie $categorie): static
     {
         $this->categorie = $categorie;
-
         return $this;
     }
 }
