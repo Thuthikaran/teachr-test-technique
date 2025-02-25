@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert; // Add this line
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -15,15 +16,21 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank] // Add this validation rule
+    #[Assert\Length(min: 3)] // You can also add length validation
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank] // Make sure description is not blank
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank] // Ensure price is provided
+    #[Assert\Positive] // Ensure the price is positive
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank] // Ensure the date is provided
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
