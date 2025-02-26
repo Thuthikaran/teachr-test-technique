@@ -15,20 +15,20 @@ class Categorie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['category:read', 'category:write'])] // Add serialization group
+    #[Groups(['category:read', 'category:write', 'product:read'])] // Added product:read
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank] // Add this validation rule
-    #[Assert\Length(min: 3)] // You can also add length validation, for example, a minimum of 3 characters
-    #[Groups(['category:read', 'category:write'])] // Add serialization group
+    #[Assert\NotBlank] 
+    #[Assert\Length(min: 3)] 
+    #[Groups(['category:read', 'category:write', 'product:read'])] // Added product:read
     private ?string $nom = null;
 
     /**
      * @var Collection<int, Produit>
      */
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'categorie')]
-    #[Groups(['category:read'])] // Add serialization group for read only
+    #[Groups(['category:read'])] // No need to expose in product:read since we only want basic info
     private Collection $produits;
 
     public function __construct()
@@ -49,7 +49,6 @@ class Categorie
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -67,19 +66,16 @@ class Categorie
             $this->produits->add($produit);
             $produit->setCategorie($this);
         }
-
         return $this;
     }
 
     public function removeProduit(Produit $produit): static
     {
         if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
             if ($produit->getCategorie() === $this) {
                 $produit->setCategorie(null);
             }
         }
-
         return $this;
     }
 }
