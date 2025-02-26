@@ -6,4 +6,4 @@ controllers:
 
 app_home:
     path: /
-    controller: App\Controller\CategorieApiController::index
+    controller: App\Controller\CategorieController::index
