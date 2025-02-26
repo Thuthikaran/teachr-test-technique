@@ -3,3 +3,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+#[Route('/', name: 'homepage')]
+public function index(): Response
+{
+    return new Response('<h1>Welcome to My Symfony App</h1>');
+}
