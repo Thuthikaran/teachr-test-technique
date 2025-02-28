@@ -72,15 +72,7 @@
    php bin/console doctrine:migrations:migrate
    ```
 
-5. Configurez Cloudinary :
-   Ajoutez vos clés Cloudinary dans le fichier `.env.local` :
-   ```ini
-   CLOUDINARY_CLOUD_NAME=votre_nom_cloudinary
-   CLOUDINARY_API_KEY=votre_clé_api
-   CLOUDINARY_API_SECRET=votre_clé_secrète
-   ```
-
-6. Lancez le serveur Symfony :
+5. Lancez le serveur Symfony :
    ```bash
    symfony server:start
    ```
