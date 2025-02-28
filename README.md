@@ -33,6 +33,19 @@
 
 ---
 
+## 🛠️ Choix Techniques
+
+### Backend
+- **Symfony** : Choisi pour son écosystème robuste et **API Platform**, qui simplifie la création d'API RESTful.
+- **Doctrine ORM** : Utilisé pour des interactions efficaces avec la base de données et la prise en charge de plusieurs systèmes de bases de données.
+- **Cloudinary** : Intégré pour faciliter le téléchargement et la gestion des images, ainsi que pour une livraison optimisée.
+- **CORS Bundle** : Activé pour permettre une communication fluide entre le frontend React et le backend Symfony.
+
+### Déploiement
+- **Heroku** : Choisi pour le déploiement du backend en raison de sa simplicité d'utilisation et de son offre gratuite.
+
+---
+
 ## 🛠️ Installation & Configuration
 
 ### **Configuration du Backend (Symfony)**
@@ -130,5 +143,3 @@ Voici les endpoints disponibles pour interagir avec le backend :
 Développé par **Thuthikaran Easvaran** pour le **test de recrutement Teach'r**.
 
 📩 N'hésitez pas à me contacter pour toute question ou retour !
-
----
