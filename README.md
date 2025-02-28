@@ -132,5 +132,3 @@ Développé par **Thuthikaran Easvaran** pour le **test de recrutement Teach'r**
 📩 N'hésitez pas à me contacter pour toute question ou retour !
 
 ---
-
-Ce fichier `README.md` est spécifiquement adapté pour votre **backend Symfony** et inclut les mêmes captures d'écran que le frontend. Si vous avez besoin d'autres ajustements, faites-moi savoir ! 😊
